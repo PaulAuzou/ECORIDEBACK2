@@ -37,7 +37,7 @@ class UtilisateurController extends AbstractController
 
         return $this->json(
             ['message' => "Utilisateur resource created with {$Utilisateur->getId()} id"],
-            Response::HTTP_CREATED,
+            Response::HTTP_CREATED
         );
     }
 
@@ -51,6 +51,22 @@ class UtilisateurController extends AbstractController
         }
         return $this->json(['message' => "Utilisateur found : {$Utilisateur->getNom()} for {$Utilisateur->getId()} id"]
         );
+    }
+
+
+    #[Route('/login', name: 'show', methods: 'POST')]
+    public function login(Request $request): Response
+    {
+        $parameters = json_decode($request->getContent(), true);
+        $Utilisateur = $this->repository->findOneby([
+            'email' => $parameters['email'],
+            'password' => $parameters['password']
+        ]);
+
+        if (!$Utilisateur) {
+            throw new \Exception("Wrong credentials");
+        }
+        return $this->json($Utilisateur->getPseudo(), Response::HTTP_OK);
     }
 
     #[Route('/{id}', name: 'edit', methods: 'PUT')]
