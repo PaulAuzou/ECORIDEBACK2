@@ -6,6 +6,7 @@ use App\Entity\Utilisateur;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,11 +18,13 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route(name: 'new', methods: 'POST')]
-    public function new(): Response
+    public function new(Request $request): Response
     {
+        $parameters = json_decode($request->getContent(), true);
+
         $Utilisateur = new Utilisateur();
         $Utilisateur->setNom('Auzou');
-        $Utilisateur->setPrenom('Paul');
+        $Utilisateur->setPrenom($parameters['prenom']);
         $Utilisateur->setEmail('<EMAIL>');
         $Utilisateur->setPassword('<PASSWORD>');
         $Utilisateur->setPseudo('Paul');
@@ -51,7 +54,7 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'edit', methods: 'PUT')]
-    public function edit(): Response
+    public function edit(int $id): Response
     {
         $Utilisateur = $this->repository->findOneby(['id' => $id]);
 
@@ -63,11 +66,12 @@ class UtilisateurController extends AbstractController
 
         $this->manager->flush();
 
-        return $this->redirectToRoute('app_api_utilisateur_show', ['id' => $Utilisateur->getId()]);
+        return $this->json(['message' => "Utilisateur found : {$Utilisateur->getNom()} for {$Utilisateur->getId()} id"]
+        );
     }
 
     #[Route('/{id}', name: 'delete', methods: 'DELETE')]
-    public function delete(): Response
+    public function delete(int $id): Response
     {
         $Utilisateur = $this->repository->findOneby(['id' => $id]);
 
