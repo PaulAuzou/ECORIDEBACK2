@@ -106,6 +106,7 @@ Assurez-vous que les tests passent avant tout déploiement.
 
 ## Contribuer
 
+
 1. Forkez le projet.
 2. Créez une branche pour votre feature : `git checkout -b ma-feature`.
 3. Commitez vos modifications : `git commit -m "Ajoute ma-feature"`.
