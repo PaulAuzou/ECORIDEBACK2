@@ -23,14 +23,14 @@ class UtilisateurController extends AbstractController
         $parameters = json_decode($request->getContent(), true);
 
         $Utilisateur = new Utilisateur();
-        $Utilisateur->setNom('Auzou');
+        $Utilisateur->setNom($parameters['nom']);
         $Utilisateur->setPrenom($parameters['prenom']);
-        $Utilisateur->setEmail('<EMAIL>');
-        $Utilisateur->setPassword('<PASSWORD>');
-        $Utilisateur->setPseudo('Paul');
-        $Utilisateur->setDateNaissance('1990-01-01');
-        $Utilisateur->setAdresse('12 rue des champs');
-        $Utilisateur->setTelephone('0600000000');
+        $Utilisateur->setEmail($parameters['email']);
+        $Utilisateur->setPassword($parameters['password']);
+        $Utilisateur->setPseudo($parameters['pseudo']);
+        $Utilisateur->setDateNaissance($parameters['date_naissance']);
+        $Utilisateur->setAdresse($parameters['adresse']);
+        $Utilisateur->setTelephone($parameters['telephone']);
 
         $this->manager->persist($Utilisateur);
         $this->manager->flush();
