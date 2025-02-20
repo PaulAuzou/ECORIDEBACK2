@@ -114,4 +114,4 @@ Assurez-vous que les tests passent avant tout déploiement.
 
 ## License
 
-Ce projet est sous licence [Nom de la licence] - voir le fichier LICENSE pour plus de détails.
+Ce projet est sous licence [ECORIDE] - voir le fichier LICENSE pour plus de détails.
